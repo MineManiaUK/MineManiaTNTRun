@@ -17,7 +17,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.github.minemaniauk.minemaniasmp.commands.arena;
+package com.github.minemaniauk.minemaniatntrun.arena;
 
-public class ArenaCreateCommand {
+import com.github.minemaniauk.api.game.session.Session;
+import com.github.minemaniauk.minemaniatntrun.MineManiaTNTRun;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
+import java.util.UUID;
+
+/**
+ * Represents a tnt arena factory implementation.
+ */
+public class TNTArenaFactory implements Session.ArenaFactory<TNTArena> {
+
+    @Override
+    public @NotNull Optional<TNTArena> getArena(@NotNull UUID uuid) {
+        return MineManiaTNTRun.getInstance()
+                .getArenaConfiguration()
+                .getType(uuid.toString());
+    }
 }

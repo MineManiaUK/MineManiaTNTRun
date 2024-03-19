@@ -17,11 +17,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.github.minemaniauk.minemaniasmp.configuration;
+package com.github.minemaniauk.minemaniatntrun.configuration;
 
 import com.github.cozyplugins.cozylibrary.configuration.SingleTypeConfigurationDirectory;
-import com.github.minemaniauk.minemaniasmp.MineManiaTNTRun;
-import com.github.minemaniauk.minemaniasmp.arena.TNTArena;
+import com.github.minemaniauk.minemaniatntrun.MineManiaTNTRun;
+import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -17,28 +17,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.github.minemaniauk.minemaniasmp.session;
+package com.github.minemaniauk.minemaniatntrun.session;
 
-import com.github.minemaniauk.api.game.Arena;
+import com.github.minemaniauk.api.game.session.Session;
+import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
+import com.github.minemaniauk.minemaniatntrun.arena.TNTArenaFactory;
 import org.jetbrains.annotations.NotNull;
 
-public interface SessionComponent<A extends Arena> {
+import java.util.UUID;
+
+/**
+ * Represents a tnt session.
+ */
+public class TNTSession extends Session<TNTArena> {
 
     /**
-     * Used to get the instance of the session this
-     * component is part of.
+     * Used to create a new tnt session.
      *
-     * @return The instance of the session.
+     * @param arenaIdentifier The arena's identifier.
      */
-    @NotNull Session<A> getSession();
-
-    /**
-     * Used to start the session component.
-     */
-    void start();
-
-    /**
-     * Used to stop the session component.
-     */
-    void stop();
+    public TNTSession(@NotNull UUID arenaIdentifier) {
+        super(arenaIdentifier, new TNTArenaFactory());
+    }
 }

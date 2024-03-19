@@ -17,17 +17,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.github.minemaniauk.minemaniasmp.arena;
+package com.github.minemaniauk.minemaniatntrun.arena;
 
 import com.github.cozyplugins.cozylibrary.indicator.LocationConvertable;
 import com.github.cozyplugins.cozylibrary.indicator.Savable;
 import com.github.cozyplugins.cozylibrary.location.Region3D;
+import com.github.minemaniauk.api.MineManiaLocation;
 import com.github.minemaniauk.api.game.Arena;
 import com.github.minemaniauk.api.game.GameType;
-import com.github.minemaniauk.minemaniasmp.MineManiaTNTRun;
+import com.github.minemaniauk.api.user.MineManiaUser;
+import com.github.minemaniauk.bukkitapi.BukkitLocationConverter;
+import com.github.minemaniauk.minemaniatntrun.MineManiaTNTRun;
+import com.github.minemaniauk.minemaniatntrun.WorldEditUtility;
+import com.github.minemaniauk.minemaniatntrun.session.TNTSession;
 import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertable;
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
+import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,6 +48,7 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
 
     private @Nullable Region3D region;
     private @Nullable Location spawnPoint;
+    private @Nullable String schematic;
 
     /**
      * Used to create a new instance of a tnt run arena.
@@ -73,11 +80,28 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
     public @NotNull Location getSpawnPoint() {
 
         // Check if the spawn point is null.
-        if (this.region == null) {
+        if (this.spawnPoint == null) {
             throw new RuntimeException("Spawn point is null for arena with identifier " + this.getIdentifier());
         }
 
         return this.spawnPoint;
+    }
+
+    /**
+     * Used to get the arenas schematic.
+     * This schematic will be pasted before teleporting
+     * the players.
+     *
+     * @return The schematic identifier.
+     */
+    public @NotNull String getSchematic() {
+
+        // Check if the spawn point is null.
+        if (this.schematic == null) {
+            throw new RuntimeException("Schematic is null for arena with identifier " + this.getIdentifier());
+        }
+
+        return this.schematic;
     }
 
     /**
@@ -102,14 +126,45 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
         return this;
     }
 
+    /**
+     * Used to set the schematic that should be used.
+     *
+     * @param schematic The schematic identifier without extensions.
+     * @return This instance.
+     */
+    public @NotNull TNTArena setSchematic(@NotNull String schematic) {
+        this.schematic = schematic;
+        return this;
+    }
+
     @Override
     public void activate() {
         this.save();
+        MineManiaTNTRun.getInstance()
+                .getSessionManager()
+                .registerSession(new TNTSession(this.getIdentifier()));
+
+        // Paste the schematic.
+        Clipboard clipboard = WorldEditUtility.getSchematic(this.getSchematic());
+        WorldEditUtility.pasteClipboard(this.getRegion().getMinPoint(), clipboard);
+
+        // Get spawn point as a mine mania location.
+        MineManiaLocation location = new BukkitLocationConverter()
+                .getMineManiaLocation(this.getSpawnPoint());
+
+        // Teleport the players.
+        for (MineManiaUser user : this.getGameRoom().orElseThrow().getPlayers()) {
+            user.getActions().sendMessage("&7&l> &fGame started! &7Teleporting you to the game arena.");
+            user.getActions().teleport(location);
+        }
     }
 
     @Override
     public void deactivate() {
         this.save();
+        MineManiaTNTRun.getInstance()
+                .getSessionManager()
+                .unregisterSession(new TNTSession(this.getIdentifier()));
     }
 
     @Override
@@ -149,5 +204,7 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
         // Save to local storage.
         MineManiaTNTRun.getInstance().getArenaConfiguration()
                 .insertType(this.getIdentifier().toString(), this);
+        MineManiaTNTRun.getInstance().getArenaConfiguration()
+                .reload();
     }
 }
