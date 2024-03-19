@@ -125,9 +125,8 @@ public final class WorldEditUtility {
             return reader.read();
 
         } catch (IOException exception) {
-            ConsoleManager.error("Tried to get a schematic but could not read the file.");
-            exception.printStackTrace();
-            return null;
+            MineManiaTNTRun.getInstance().getLogger().warning("Tried to get a schematic but could not read the file.");
+            throw new RuntimeException(exception);
         }
     }
 
@@ -152,8 +151,8 @@ public final class WorldEditUtility {
             Operations.complete(operation);
 
         } catch (Exception exception) {
-            ConsoleManager.error("Tried to paste a schematic but was unable to.");
-            exception.printStackTrace();
+            MineManiaTNTRun.getInstance().getLogger().warning("Tried to paste a schematic but was unable to.");
+            throw new RuntimeException(exception);
         }
     }
 }

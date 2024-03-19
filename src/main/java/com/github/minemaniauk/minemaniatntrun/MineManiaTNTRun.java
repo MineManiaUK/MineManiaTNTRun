@@ -31,7 +31,11 @@ import com.github.minemaniauk.minemaniatntrun.commands.arena.ArenaSetSchematicCo
 import com.github.minemaniauk.minemaniatntrun.commands.arena.ArenaSetSpawnPointCommand;
 import com.github.minemaniauk.minemaniatntrun.configuration.ArenaConfiguration;
 import com.github.minemaniauk.minemaniatntrun.session.TNTSession;
+import net.royawesome.jlibnoise.module.combiner.Min;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -91,6 +95,9 @@ public final class MineManiaTNTRun extends CozyPlugin {
         // Loop though all sessions and stop them.
         this.sessionManager.stopAllSessionComponents();
 
+        // Remove game identifier.
+        this.getArenaConfiguration().resetGameIdentifiers();
+
         // Unregister the local arenas.
         MineManiaTNTRun.getAPI().getGameManager().unregisterLocalArenas();
     }
@@ -145,6 +152,19 @@ public final class MineManiaTNTRun extends CozyPlugin {
             if (arena.getRegion().contains(location)) return Optional.of(arena);
         }
 
+        return Optional.empty();
+    }
+
+    /**
+     * Used to get the instance of an online player from the uuid.
+     *
+     * @param playerUuid The player uuid to look for.
+     * @return The optional player.
+     */
+    public @NotNull Optional<Player> getOnlinePlayer(@NotNull UUID playerUuid) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.getUniqueId().equals(playerUuid)) return Optional.of(player);
+        }
         return Optional.empty();
     }
 

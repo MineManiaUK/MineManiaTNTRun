@@ -140,38 +140,53 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
 
     @Override
     public void activate() {
-        this.save();
-        MineManiaTNTRun.getInstance().getArenaConfiguration().reloadRegisteredArenas();
-        MineManiaTNTRun.getInstance()
-                .getSessionManager()
-                .registerSession(new TNTSession(this.getIdentifier()));
+        try {
+            this.save();
 
-        if (this.schematic == null || !WorldEditUtility.getSchematicList().contains(this.getSchematic())) {
-            MineManiaTNTRun.getInstance().getLogger().warning("Couldn't not find schematic {" + this.schematic + "} for " + this.getIdentifier());
-        }
+            // Check if the game room identifier has been provided.
+            if (this.getGameRoom().isEmpty()) {
+                MineManiaTNTRun.getInstance().getLogger().warning("Couldn't not find game room identifier {" + this.getGameRoomIdentifier() + "} for " + this.getIdentifier());
+                return;
+            }
 
-        // Paste the schematic.
-        Clipboard clipboard = WorldEditUtility.getSchematic(this.getSchematic());
-        WorldEditUtility.pasteClipboard(this.getRegion().getMinPoint(), clipboard);
+            MineManiaTNTRun.getInstance()
+                    .getSessionManager()
+                    .registerSession(new TNTSession(this.getIdentifier()));
 
-        // Get spawn point as a mine mania location.
-        MineManiaLocation location = new BukkitLocationConverter()
-                .getMineManiaLocation(this.getSpawnPoint());
+            // Check if the schematic has been provided.
+            if (this.schematic == null || !WorldEditUtility.getSchematicList().contains(this.getSchematic())) {
+                MineManiaTNTRun.getInstance().getLogger().warning("Couldn't not find schematic {" + this.schematic + "} for " + this.getIdentifier());
+                return;
+            }
 
-        // Teleport the players.
-        for (MineManiaUser user : this.getGameRoom().orElseThrow().getPlayers()) {
-            user.getActions().sendMessage("&7&l> &fGame started! &7Teleporting you to the game arena.");
-            user.getActions().teleport(location);
+            // Paste the schematic.
+            Clipboard clipboard = WorldEditUtility.getSchematic(this.getSchematic());
+            WorldEditUtility.pasteClipboard(this.getRegion().getMinPoint(), clipboard);
+
+            // Get spawn point as a mine mania location.
+            MineManiaLocation location = new BukkitLocationConverter()
+                    .getMineManiaLocation(this.getSpawnPoint());
+
+            // Teleport the players.
+            for (MineManiaUser user : this.getGameRoom().get().getPlayers()) {
+                user.getActions().sendMessage("&7&l> &fGame started! &7Teleporting you to the game arena.");
+                user.getActions().teleport(location);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
     @Override
     public void deactivate() {
+        this.setGameRoomIdentifier(null);
         this.save();
-        MineManiaTNTRun.getInstance().getArenaConfiguration().reloadRegisteredArenas();
-        MineManiaTNTRun.getInstance()
-                .getSessionManager()
-                .unregisterSession(new TNTSession(this.getIdentifier()));
+        MineManiaTNTRun.getInstance().getSessionManager()
+                .getSession(this.getIdentifier())
+                .ifPresent(session -> {
+                    session.stopComponents();
+                    MineManiaTNTRun.getInstance().getSessionManager().unregisterSession(session);
+                });
     }
 
     @Override
@@ -180,7 +195,7 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
 
         section.set("server_name", this.getServerName());
         section.set("game_type", this.getGameType().name());
-        section.set("game_room_identifier", this.getGameRoomIdentifier().orElse(null));
+        if (this.getGameRoomIdentifier().isPresent()) section.set("game_room_identifier", this.getGameRoomIdentifier().get().toString());
         section.set("min_players", this.getMinPlayers());
         section.set("max_players", this.getMaxPlayers());
 
@@ -194,7 +209,7 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
     @Override
     public @NotNull TNTArena convert(@NotNull ConfigurationSection section) {
 
-        if (section.getKeys().contains("game_room_identifier")) this.setGameRoomIdentifier(UUID.fromString(section.getString("gameRoomIdentifier")));
+        if (section.getKeys().contains("game_room_identifier")) this.setGameRoomIdentifier(UUID.fromString(section.getString("game_room_identifier")));
         this.setMinPlayers(section.getInteger("min_players"));
         this.setMaxPlayers(section.getInteger("max_players"));
 
@@ -213,6 +228,5 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
         // Save to local storage.
         MineManiaTNTRun.getInstance().getArenaConfiguration()
                 .insertType(this.getIdentifier().toString(), this);
-        MineManiaTNTRun.getInstance().getArenaConfiguration().reload();
     }
 }

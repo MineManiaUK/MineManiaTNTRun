@@ -70,4 +70,18 @@ public class ArenaConfiguration extends SingleTypeConfigurationDirectory<TNTAren
 
         return this;
     }
+
+    /**
+     * Used to reset the game identifiers for each arena.
+     *
+     * @return This instance.
+     */
+    public @NotNull ArenaConfiguration resetGameIdentifiers() {
+        for (TNTArena arena : this.getAllTypes()) {
+            arena.setGameRoomIdentifier(null);
+            arena.save();
+        }
+
+        return this;
+    }
 }
