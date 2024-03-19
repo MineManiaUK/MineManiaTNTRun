@@ -29,6 +29,7 @@ import com.github.cozyplugins.cozylibrary.user.User;
 import com.github.minemaniauk.minemaniatntrun.MineManiaTNTRun;
 import com.github.minemaniauk.minemaniatntrun.WorldEditUtility;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
+import net.royawesome.jlibnoise.module.combiner.Min;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -87,7 +88,7 @@ public class ArenaSetSchematicCommand implements CozyCommand {
         final String schematic = commandArguments.getArguments().get(0);
 
         // Check if the schematic exists.
-        if (WorldEditUtility.getSchematicList().contains(schematic)) {
+        if (!WorldEditUtility.getSchematicList().contains(schematic)) {
             user.sendMessage("&c&l> &cThat is not a valid schematic.");
             return new CommandStatus();
         }
@@ -107,6 +108,8 @@ public class ArenaSetSchematicCommand implements CozyCommand {
         // Set the arena's spawn point.
         arena.setSchematic(schematic);
         arena.save();
+
+        MineManiaTNTRun.getInstance().getArenaConfiguration().reloadRegisteredArenas();
 
         // Send a confirmation message.
         user.sendMessage("&7&l> &7The schematic of " + arena.getIdentifier() + " &7is now set to &f" + schematic);

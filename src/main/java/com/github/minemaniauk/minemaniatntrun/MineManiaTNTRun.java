@@ -27,6 +27,8 @@ import com.github.minemaniauk.api.game.session.SessionManager;
 import com.github.minemaniauk.bukkitapi.MineManiaAPI_Bukkit;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
 import com.github.minemaniauk.minemaniatntrun.commands.arena.ArenaCreateCommand;
+import com.github.minemaniauk.minemaniatntrun.commands.arena.ArenaSetSchematicCommand;
+import com.github.minemaniauk.minemaniatntrun.commands.arena.ArenaSetSpawnPointCommand;
 import com.github.minemaniauk.minemaniatntrun.configuration.ArenaConfiguration;
 import com.github.minemaniauk.minemaniatntrun.session.TNTSession;
 import org.bukkit.Location;
@@ -76,6 +78,8 @@ public final class MineManiaTNTRun extends CozyPlugin {
                         .setDescription("Contains the arena commands")
                         .setSyntax("/tntrun arena")
                         .addSubCommand(new ArenaCreateCommand())
+                        .addSubCommand(new ArenaSetSpawnPointCommand())
+                        .addSubCommand(new ArenaSetSchematicCommand())
                 )
         );
     }

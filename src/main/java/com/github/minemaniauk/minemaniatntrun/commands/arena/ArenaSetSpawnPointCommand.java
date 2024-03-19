@@ -93,6 +93,8 @@ public class ArenaSetSpawnPointCommand implements CozyCommand {
         arena.setSpawnPoint(location);
         arena.save();
 
+        MineManiaTNTRun.getInstance().getArenaConfiguration().reloadRegisteredArenas();
+
         // Send a confirmation message.
         user.sendMessage("&7&l> &7The spawn of " + arena.getIdentifier() + " &7is now set to &f" + location);
         return new CommandStatus();

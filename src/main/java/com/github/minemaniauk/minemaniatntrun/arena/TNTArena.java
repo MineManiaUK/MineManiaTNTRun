@@ -34,6 +34,7 @@ import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertab
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
+import net.royawesome.jlibnoise.module.combiner.Min;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -140,9 +141,14 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
     @Override
     public void activate() {
         this.save();
+        MineManiaTNTRun.getInstance().getArenaConfiguration().reloadRegisteredArenas();
         MineManiaTNTRun.getInstance()
                 .getSessionManager()
                 .registerSession(new TNTSession(this.getIdentifier()));
+
+        if (this.schematic == null || !WorldEditUtility.getSchematicList().contains(this.getSchematic())) {
+            MineManiaTNTRun.getInstance().getLogger().warning("Couldn't not find schematic {" + this.schematic + "} for " + this.getIdentifier());
+        }
 
         // Paste the schematic.
         Clipboard clipboard = WorldEditUtility.getSchematic(this.getSchematic());
@@ -162,6 +168,7 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
     @Override
     public void deactivate() {
         this.save();
+        MineManiaTNTRun.getInstance().getArenaConfiguration().reloadRegisteredArenas();
         MineManiaTNTRun.getInstance()
                 .getSessionManager()
                 .unregisterSession(new TNTSession(this.getIdentifier()));
@@ -171,14 +178,15 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
     public @NotNull ConfigurationSection convert() {
         ConfigurationSection section = new MemoryConfigurationSection(new LinkedHashMap<>());
 
-        section.set("serverName", this.getServerName());
-        section.set("gameType", this.getGameType().name());
-        section.set("gameRoomIdentifier", this.getGameRoomIdentifier());
-        section.set("minPlayers", this.getMinPlayers());
-        section.set("maxPlayers", this.getMaxPlayers());
+        section.set("server_name", this.getServerName());
+        section.set("game_type", this.getGameType().name());
+        section.set("game_room_identifier", this.getGameRoomIdentifier().orElse(null));
+        section.set("min_players", this.getMinPlayers());
+        section.set("max_players", this.getMaxPlayers());
 
-        section.set("region", this.getRegion().convert());
-        section.set("spawn_point", this.convertLocation(this.spawnPoint));
+        section.set("region", this.getRegion().convert().getMap());
+        if (this.spawnPoint != null) section.set("spawn_point", this.convertLocation(this.spawnPoint));
+        if (this.schematic != null) section.set("schematic", this.getSchematic());
 
         return section;
     }
@@ -186,12 +194,13 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
     @Override
     public @NotNull TNTArena convert(@NotNull ConfigurationSection section) {
 
-        this.setGameRoomIdentifier(UUID.fromString(section.getString("gameRoomIdentifier")));
-        this.setMinPlayers(section.getInteger("minPlayers"));
-        this.setMaxPlayers(section.getInteger("maxPlayers"));
+        if (section.getKeys().contains("game_room_identifier")) this.setGameRoomIdentifier(UUID.fromString(section.getString("gameRoomIdentifier")));
+        this.setMinPlayers(section.getInteger("min_players"));
+        this.setMaxPlayers(section.getInteger("max_players"));
 
-        this.setRegion(new Region3D(section));
-        this.setSpawnPoint(this.convertLocation(section.getSection("spawn_point")));
+        this.setRegion(new Region3D(section.getSection("region")));
+        if (section.getKeys().contains("spawn_point")) this.setSpawnPoint(this.convertLocation(section.getSection("spawn_point")));
+        if (section.getKeys().contains("schematic")) this.setSchematic(section.getString("schematic"));
         return this;
     }
 
@@ -204,7 +213,6 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
         // Save to local storage.
         MineManiaTNTRun.getInstance().getArenaConfiguration()
                 .insertType(this.getIdentifier().toString(), this);
-        MineManiaTNTRun.getInstance().getArenaConfiguration()
-                .reload();
+        MineManiaTNTRun.getInstance().getArenaConfiguration().reload();
     }
 }

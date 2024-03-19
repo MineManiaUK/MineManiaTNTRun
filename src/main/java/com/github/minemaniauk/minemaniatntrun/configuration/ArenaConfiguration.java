@@ -22,6 +22,8 @@ package com.github.minemaniauk.minemaniatntrun.configuration;
 import com.github.cozyplugins.cozylibrary.configuration.SingleTypeConfigurationDirectory;
 import com.github.minemaniauk.minemaniatntrun.MineManiaTNTRun;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
+import net.royawesome.jlibnoise.module.combiner.Min;
+import org.bukkit.block.data.type.TNT;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,5 +54,20 @@ public class ArenaConfiguration extends SingleTypeConfigurationDirectory<TNTAren
     @Override
     public @NotNull TNTArena createEmpty(@NotNull String identifier) {
         return new TNTArena(UUID.fromString(identifier));
+    }
+
+    /**
+     * Used to update arenas that are registered.
+     *
+     * @return This instance.
+     */
+    public @NotNull ArenaConfiguration reloadRegisteredArenas() {
+        MineManiaTNTRun.getAPI().getGameManager().unregisterLocalArenas();
+
+        for (TNTArena arena : this.getAllTypes()) {
+            MineManiaTNTRun.getAPI().getGameManager().registerArena(arena);
+        }
+
+        return this;
     }
 }
