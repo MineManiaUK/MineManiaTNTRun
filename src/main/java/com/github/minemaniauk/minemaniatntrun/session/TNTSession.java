@@ -49,6 +49,7 @@ public class TNTSession extends Session<TNTArena> {
     private final @NotNull List<UUID> playersJoined;
     private @NotNull TNTStatus status;
     private UUID winnerUuid;
+    private int pawReward;
 
     /**
      * Used to create a new tnt session.
@@ -94,6 +95,9 @@ public class TNTSession extends Session<TNTArena> {
             this.endGameFully();
         }
 
+        // Set paw reward.
+        this.pawReward = (this.playersAlive.size() - 1) * 10;
+
         // Start removing tnt.
         this.getComponent(TNTRemovalComponent.class).start();
         this.getComponent(TNTDeathCheckComponent.class).start();
@@ -116,11 +120,12 @@ public class TNTSession extends Session<TNTArena> {
         // Set the end status.
         this.setStatus(TNTStatus.END);
 
+        // Give the winner the correct amount of paws.
         MineManiaTNTRun.getAPI().getDatabase()
                 .getTable(UserCollection.class)
                 .getUserRecord(winnerUuid)
                 .ifPresent(user -> {
-                    user.addPaws(20);
+                    user.addPaws(this.pawReward);
                     MineManiaTNTRun.getAPI().getDatabase()
                             .getTable(UserCollection.class)
                             .insertRecord(user);
@@ -129,7 +134,7 @@ public class TNTSession extends Session<TNTArena> {
         MineManiaTNTRun.getInstance()
                 .getOnlinePlayer(winnerUuid)
                 .ifPresent(player -> {
-                    new PlayerUser(player).sendMessage("&a&l> &a+20 paws");
+                    new PlayerUser(player).sendMessage("&a&l> &a+{amount} paws".replace("{amount}", Integer.toString(this.pawReward)));
                 });
 
         this.getComponent(TNTEndComponent.class).start();
