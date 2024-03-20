@@ -25,18 +25,15 @@ import com.github.minemaniauk.api.game.session.Session;
 import com.github.minemaniauk.api.game.session.SessionComponent;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
 import com.github.minemaniauk.minemaniatntrun.session.TNTSession;
-import com.github.minemaniauk.minemaniatntrun.session.TNTStatus;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.type.TNT;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.Duration;
 import java.util.UUID;
 
 public class TNTRemovalComponent extends TaskContainer implements SessionComponent<TNTArena> {
@@ -65,7 +62,7 @@ public class TNTRemovalComponent extends TaskContainer implements SessionCompone
         this.runTaskLoop(TNT_REMOVAL, () -> {
 
             for (Player player : this.getSession().getAlivePlayers()) {
-                Location locationToCheck = player.getLocation().clone().add(new Vector(0 , -1, 0));
+                Location locationToCheck = player.getLocation().clone().add(new Vector(0, -1, 0));
 
                 if (locationToCheck.getBlock().getType().equals(Material.TNT)) {
                     this.removeTnt(locationToCheck);

@@ -31,11 +31,9 @@ import com.github.minemaniauk.minemaniatntrun.commands.arena.ArenaSetSchematicCo
 import com.github.minemaniauk.minemaniatntrun.commands.arena.ArenaSetSpawnPointCommand;
 import com.github.minemaniauk.minemaniatntrun.configuration.ArenaConfiguration;
 import com.github.minemaniauk.minemaniatntrun.session.TNTSession;
-import net.royawesome.jlibnoise.module.combiner.Min;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

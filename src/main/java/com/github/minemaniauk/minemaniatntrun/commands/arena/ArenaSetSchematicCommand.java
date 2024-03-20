@@ -29,7 +29,6 @@ import com.github.cozyplugins.cozylibrary.user.User;
 import com.github.minemaniauk.minemaniatntrun.MineManiaTNTRun;
 import com.github.minemaniauk.minemaniatntrun.WorldEditUtility;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
-import net.royawesome.jlibnoise.module.combiner.Min;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

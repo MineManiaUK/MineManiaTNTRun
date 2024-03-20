@@ -25,13 +25,10 @@ import com.github.minemaniauk.api.game.session.Session;
 import com.github.minemaniauk.api.game.session.SessionComponent;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
 import com.github.minemaniauk.minemaniatntrun.session.TNTSession;
-import com.github.minemaniauk.minemaniatntrun.session.TNTStatus;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.time.Duration;
 
 public class TNTSpectatorComponent extends TaskContainer implements SessionComponent<TNTArena> {
 

@@ -20,7 +20,6 @@
 package com.github.minemaniauk.minemaniatntrun.session.component;
 
 import com.github.cozyplugins.cozylibrary.task.TaskContainer;
-import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.github.minemaniauk.api.game.session.Session;
 import com.github.minemaniauk.api.game.session.SessionComponent;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;

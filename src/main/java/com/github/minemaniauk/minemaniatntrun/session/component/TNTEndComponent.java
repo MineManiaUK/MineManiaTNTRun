@@ -24,7 +24,6 @@ import com.github.minemaniauk.api.game.session.Session;
 import com.github.minemaniauk.api.game.session.SessionComponent;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
 import com.github.minemaniauk.minemaniatntrun.session.TNTSession;
-import com.github.minemaniauk.minemaniatntrun.session.TNTStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;

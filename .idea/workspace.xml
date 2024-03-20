@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c091f22-c121-48e1-9344-ef830ecd7e83" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/TNTStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/component/TNTScoreboardComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/component/TNTStartUpComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/MineManiaTNTRun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/MineManiaTNTRun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/WorldEditUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/WorldEditUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/arena/TNTArena.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/arena/TNTArena.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/configuration/ArenaConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/configuration/ArenaConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/TNTSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/TNTSession.java" afterDir="false" />
-    </list>
+    <list default="true" id="2c091f22-c121-48e1-9344-ef830ecd7e83" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,6 +133,7 @@
       <workItem from="1710806285653" duration="2450000" />
       <workItem from="1710867193606" duration="3143000" />
       <workItem from="1710874047412" duration="6014000" />
+      <workItem from="1710882995082" duration="7022000" />
     </task>
     <servers />
   </component>

@@ -22,8 +22,6 @@ package com.github.minemaniauk.minemaniatntrun.configuration;
 import com.github.cozyplugins.cozylibrary.configuration.SingleTypeConfigurationDirectory;
 import com.github.minemaniauk.minemaniatntrun.MineManiaTNTRun;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
-import net.royawesome.jlibnoise.module.combiner.Min;
-import org.bukkit.block.data.type.TNT;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

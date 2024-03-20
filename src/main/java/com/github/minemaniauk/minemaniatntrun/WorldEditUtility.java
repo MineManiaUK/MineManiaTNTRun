@@ -1,6 +1,5 @@
 package com.github.minemaniauk.minemaniatntrun;
 
-import com.github.cozyplugins.cozylibrary.ConsoleManager;
 import com.github.cozyplugins.cozylibrary.location.Region3D;
 import com.github.cozyplugins.cozylibrary.user.PlayerUser;
 import com.sk89q.worldedit.EditSession;

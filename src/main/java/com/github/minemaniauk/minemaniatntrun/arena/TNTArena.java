@@ -34,7 +34,6 @@ import com.github.smuddgge.squishyconfiguration.indicator.ConfigurationConvertab
 import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
-import net.royawesome.jlibnoise.module.combiner.Min;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -195,7 +194,8 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
 
         section.set("server_name", this.getServerName());
         section.set("game_type", this.getGameType().name());
-        if (this.getGameRoomIdentifier().isPresent()) section.set("game_room_identifier", this.getGameRoomIdentifier().get().toString());
+        if (this.getGameRoomIdentifier().isPresent())
+            section.set("game_room_identifier", this.getGameRoomIdentifier().get().toString());
         section.set("min_players", this.getMinPlayers());
         section.set("max_players", this.getMaxPlayers());
 
@@ -209,12 +209,14 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
     @Override
     public @NotNull TNTArena convert(@NotNull ConfigurationSection section) {
 
-        if (section.getKeys().contains("game_room_identifier")) this.setGameRoomIdentifier(UUID.fromString(section.getString("game_room_identifier")));
+        if (section.getKeys().contains("game_room_identifier"))
+            this.setGameRoomIdentifier(UUID.fromString(section.getString("game_room_identifier")));
         this.setMinPlayers(section.getInteger("min_players"));
         this.setMaxPlayers(section.getInteger("max_players"));
 
         this.setRegion(new Region3D(section.getSection("region")));
-        if (section.getKeys().contains("spawn_point")) this.setSpawnPoint(this.convertLocation(section.getSection("spawn_point")));
+        if (section.getKeys().contains("spawn_point"))
+            this.setSpawnPoint(this.convertLocation(section.getSection("spawn_point")));
         if (section.getKeys().contains("schematic")) this.setSchematic(section.getString("schematic"));
         return this;
     }
