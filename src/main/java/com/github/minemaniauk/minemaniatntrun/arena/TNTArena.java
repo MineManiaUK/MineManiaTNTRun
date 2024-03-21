@@ -21,6 +21,7 @@ package com.github.minemaniauk.minemaniatntrun.arena;
 
 import com.github.cozyplugins.cozylibrary.indicator.LocationConvertable;
 import com.github.cozyplugins.cozylibrary.indicator.Savable;
+import com.github.cozyplugins.cozylibrary.item.CozyItem;
 import com.github.cozyplugins.cozylibrary.location.Region3D;
 import com.github.minemaniauk.api.MineManiaLocation;
 import com.github.minemaniauk.api.game.Arena;
@@ -35,6 +36,7 @@ import com.github.smuddgge.squishyconfiguration.interfaces.ConfigurationSection;
 import com.github.smuddgge.squishyconfiguration.memory.MemoryConfigurationSection;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -134,6 +136,22 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
      */
     public @NotNull TNTArena setSchematic(@NotNull String schematic) {
         this.schematic = schematic;
+        if (schematic.equalsIgnoreCase("gold_mine")) {
+            this.setMapName("Gold Mine");
+            this.setDisplayItemSection(new CozyItem()
+                    .setMaterial(Material.BLADE_POTTERY_SHERD)
+                    .setName("&6&lGold Mine")
+                    .setLore("&7",
+                            "&fMin Players &a" + this.getMinPlayers(),
+                            "&fMax Players &a" + this.getMaxPlayers(),
+                            "&7",
+                            "&fMap Name &eGold Mine",
+                            "&7",
+                            "&f&l" + this.getGameType().getTitle()
+                    )
+                    .convert()
+            );
+        }
         return this;
     }
 
