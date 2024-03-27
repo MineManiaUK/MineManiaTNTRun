@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2c091f22-c121-48e1-9344-ef830ecd7e83" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/arena/TNTArena.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/arena/TNTArena.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,6 +142,10 @@
       <workItem from="1710960007984" duration="35000" />
       <workItem from="1710978167932" duration="373000" />
       <workItem from="1710978654786" duration="23000" />
+      <workItem from="1711047193079" duration="2000" />
+      <workItem from="1711047199645" duration="267000" />
+      <workItem from="1711471574171" duration="1000" />
+      <workItem from="1711471653746" duration="711000" />
     </task>
     <servers />
   </component>
