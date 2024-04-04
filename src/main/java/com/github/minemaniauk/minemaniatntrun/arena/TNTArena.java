@@ -216,6 +216,8 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
             section.set("game_room_identifier", this.getGameRoomIdentifier().get().toString());
         section.set("min_players", this.getMinPlayers());
         section.set("max_players", this.getMaxPlayers());
+        section.set("display_item", this.getDisplayItemSection() == null ? null : this.getDisplayItemSection().getMap());
+        section.set("map_name", this.getMapName());
 
         section.set("region", this.getRegion().convert().getMap());
         if (this.spawnPoint != null) section.set("spawn_point", this.convertLocation(this.spawnPoint));
@@ -231,6 +233,8 @@ public class TNTArena extends Arena implements ConfigurationConvertable<TNTArena
             this.setGameRoomIdentifier(UUID.fromString(section.getString("game_room_identifier")));
         this.setMinPlayers(section.getInteger("min_players"));
         this.setMaxPlayers(section.getInteger("max_players"));
+        if (section.getKeys().contains("display_item")) this.setDisplayItemSection(section.getSection("display_item"));
+        if (section.getKeys().contains("map_name")) this.setMapName(section.getString("map_name"));
 
         this.setRegion(new Region3D(section.getSection("region")));
         if (section.getKeys().contains("spawn_point"))
