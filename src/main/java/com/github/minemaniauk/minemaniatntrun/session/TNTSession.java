@@ -30,6 +30,7 @@ import com.github.minemaniauk.minemaniatntrun.arena.TNTArena;
 import com.github.minemaniauk.minemaniatntrun.arena.TNTArenaFactory;
 import com.github.minemaniauk.minemaniatntrun.session.component.*;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -102,7 +103,6 @@ public class TNTSession extends Session<TNTArena> {
         this.getComponent(TNTRemovalComponent.class).start();
         this.getComponent(TNTDeathCheckComponent.class).start();
         this.getComponent(TNTSpectatorComponent.class).start();
-
         return this;
     }
 
@@ -169,6 +169,17 @@ public class TNTSession extends Session<TNTArena> {
                 "&7- &fThe tnt you stand on will slowly disappear.",
                 "&7- &fLast player to fall to the bottom wins."
         ));
+
+        // Force game mode and spawn point.
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            user.forceGameMode(GameMode.ADVENTURE);
+            user.forceTeleport(this.getArena().getSpawnPoint());
+        }).start();
         return this;
     }
 

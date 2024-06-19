@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MineManiaSMP.iml" filepath="$PROJECT_DIR$/MineManiaSMP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MineManiaTNTRun.iml" filepath="$PROJECT_DIR$/MineManiaTNTRun.iml" />
     </modules>
   </component>
 </project>
