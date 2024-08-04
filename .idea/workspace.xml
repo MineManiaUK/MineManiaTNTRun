@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c091f22-c121-48e1-9344-ef830ecd7e83" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/TNTSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/TNTSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/component/TNTEndComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/minemaniauk/minemaniatntrun/session/component/TNTEndComponent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,6 +166,13 @@
       <workItem from="1718811084163" duration="140000" />
       <workItem from="1718811226553" duration="1142000" />
       <workItem from="1718817595886" duration="245000" />
+      <workItem from="1719495740089" duration="262000" />
+      <workItem from="1719507394737" duration="762000" />
+      <workItem from="1719512980606" duration="964000" />
+      <workItem from="1719942565156" duration="1114000" />
+      <workItem from="1720113199828" duration="8000" />
+      <workItem from="1720562120227" duration="151000" />
+      <workItem from="1720639481344" duration="1000" />
     </task>
     <servers />
   </component>

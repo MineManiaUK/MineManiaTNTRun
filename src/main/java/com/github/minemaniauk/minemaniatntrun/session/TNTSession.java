@@ -94,6 +94,7 @@ public class TNTSession extends Session<TNTArena> {
         // Check if there are enough players to start the game.
         if (this.playersAlive.size() <= 1) {
             this.endGameFully();
+            return this;
         }
 
         // Set paw reward.
@@ -170,16 +171,9 @@ public class TNTSession extends Session<TNTArena> {
                 "&7- &fLast player to fall to the bottom wins."
         ));
 
-        // Force game mode and spawn point.
-        new Thread(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            user.forceGameMode(GameMode.ADVENTURE);
-            user.forceTeleport(this.getArena().getSpawnPoint());
-        }).start();
+        // Teleport player and spawn them in the correct place.
+        user.forceGameMode(GameMode.ADVENTURE);
+        user.forceTeleport(this.getArena().getSpawnPoint());
         return this;
     }
 
